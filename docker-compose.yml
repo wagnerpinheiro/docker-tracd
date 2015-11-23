@@ -1,5 +1,5 @@
 tracd:
-  image: tracd
+  image: wagnerpinheiro/tracd
   ports:
     - "81:8080"
   volumes:
