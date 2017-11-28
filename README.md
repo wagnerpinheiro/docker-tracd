@@ -4,26 +4,51 @@ Run a existent Trac project (w/ Agilo) as a docker container
 
 ## Prepare
 
-Before start, download agilo for trac on vendor folder of the project.
+1. Clone this repository;
 
-Local buid:
+2. If necessary, update the agilo for trac package on the vendor folder of the project;
+
+2. Do a local Local buid:
 ```
 docker build -t tracd .
 ```
 
 ## Run
 
+Run with local build:
 ```
-docker run --name tracd -p 81:8080 -v /home/wagner/workspace/docker-trac/trac:/trac tracd
+mkdir -p ./data/trac
+docker run --name tracd -p 81:8080 -v ./data/trac:/trac tracd
 ```
 
-OR
+OR, use the docker-compose.yml sample file on the root folder of the project:
 
 ```
 docker-compose up
 ```
 
+## Init a new trac project
+
+1. Init the project:
+```
+docker-compose exec tracd trac-admin /trac initenv
+docker-compose exec tracd trac-admin /trac permission add admin TRAC_ADMIN
+```
+
+2. Create the .htpasswd file with credentials:
+```
+# sudo apt install apache2-utils
+docker-compose exec tracd htpasswd -c /trac/.htpasswd admindocker-compose exec tracd 
+```
+
+## Administration
+
+```
+docker-compose exec tracd trac-admin /trac
+```
+
 ## Trac Plugins
+
  * Agilo for trac 
  * http://trac-hacks.org/svn/visualizationplugin/
  * http://trac-hacks.org/svn/awesomeattachmentsplugin/
@@ -37,6 +62,11 @@ docker-compose up
   * http://trac-hacks.org/svn/ticketchartsmacro/
  * http://trac-hacks.org/wiki/VotePlugin
   * http://trac-hacks.org/svn/voteplugin/tags/0.1.5
+ * https://trac-hacks.org/wiki/TimingAndEstimationPlugin
+  * https://trac-hacks.org/svn/timingandestimationplugin/branches/trac0.12/
+ * https://trac-hacks.org/wiki/TracJsGanttPlugin
+  * https://trac-hacks.org/svn/tracjsganttplugin/0.11/
+
 
 ## More Info
  * http://trac.edgewall.org/wiki/TracOnUbuntu

@@ -1,4 +1,5 @@
 #!/bin/bash
+# trac-admin /trac init-env
 trac-admin /trac upgrade
 trac-admin /trac wiki upgrade
 

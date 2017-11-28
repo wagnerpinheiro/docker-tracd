@@ -1,9 +1,9 @@
 tracd:
-  image: wagnerpinheiro/tracd
+  image: tracd
   ports:
     - "81:8080"
   volumes:
-    - "/home/wagner/workspace/docker-trac/trac:/trac"
+    - "./data/trac:/trac"
   env_file:
     - "./secrets/auth.env"
   restart: always
